@@ -15,6 +15,7 @@
  TO DO:
 -make testing humor
   -action, fated, actions
+  -https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif
 */
 
 //Dialogue changing
@@ -106,11 +107,8 @@ humors
         bone<+>loop
             EXEC::change("e3a2_newcomp", "bone")
             HIDEREAD::
-        entropy<+>loop
-            EXEC::change("e3a2_newcomp", "entropy")
-            HIDEREAD::
-        surging<+>loop
-            EXEC::change("e3a2_newcomp", "surging")
+        test<+>loop
+            EXEC::change("e3a2_newcomp", "test")
             HIDEREAD::
 
 fish
@@ -212,23 +210,14 @@ document.addEventListener("readystatechange", (event) => {
 			page.party[2].components["utility"] = "light"
 				break
 
-		case "entropy":
-			page.flags.components = { entropy: 12 }
+		case "test":
+			page.flags.components = { test: 12 }
 
 			page.party.forEach(member=>{
-				member.components["primary"] = "entropy"
-				member.components["secondary"] = "entropy"
-				member.components["utility"] = "entropy"
+				member.components["primary"] = "test"
+				member.components["secondary"] = "test"
+				member.components["utility"] = "test"
 			})
-
-          case "surge":
-               page.flags.components = { surging: 12}
-
-               page.party.forEach(member=>{
-                    member.components["primary"] = "surging"
-                    member.components["secondary"] = "surging"
-                    member.components["utility"] = "surging"
-               })
 		}
 	}
 });
@@ -255,91 +244,54 @@ content.insertAdjacentHTML('beforeend', `<style>
 
 
 /* humor styling */
-[component="entropy"] {
-    --background: url(https://glass-memoirs.github.io/Glass-Memoirs/ENTROPYHUMORundithered.gif);
-    --organelle-background: url(https://glass-memoirs.github.io/Glass-Memoirs/ENTROPYHUMORundithered.gif);    
-    --background-small:  url(https://glass-memoirs.github.io/Glass-Memoirs/ENTROPYHUMORundithered.gif);
+[component="test"] {
+    --background: url(https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif);
+    --organelle-background: url(https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif);    
+    --background-small:  url(https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif);
     --background-size: auto;
     --background-position: center;
     --background-color: var(--dark-color);
     --accent-color: var(--bright-color);
     --font-color: var(--neutral-color);
 }
-[component="surging"] {
-    --background: url(https://glass-memoirs.github.io/Glass-Memoirs/surginghumoristelf.png);
-    --organelle-background: url(/img/textures/yneural.gif);
-    --background-small: url(https://glass-memoirs.github.io/Glass-Memoirs/surgingHumor.png);
-    --background-size: auto;
-    --background-position: center;
-    --background-color: var(--dark-color);
-    --accent-color: var(--friend-color);
-    --font-color: var(--fundfriend-color);
-}
 </style>`);
 //HUMORS
-env.COMBAT_COMPONENTS.entropy = {
-     name: "Entropy",
+env.COMBAT_COMPONENTS.test = {
+     name: "Testing",
      slug: "entropy",
-     description: "'repetition and chaos'",
-     help: "'move';'balance';'repeat'",
+     description: "'Testing and debugging'",
+     help: "'instakill,'full heal','powering'",
 
-     primary: { //damage scales by positive effects on user
-          alterations: [["primary", "momentum"]],     
+     primary: { //kill all foes
+          alterations: [["primary", "deathbeam"]],     
 
           stats: {
-               maxhp: 4
+               maxhp: 20
           },
      },
 
-     secondary: { //Removes status effects from both you and the enemy
-          alterations: [["secondary", "level_statuses"]],
+     secondary: { //full heal allies
+          alterations: [["secondary", "healbeam"]],
           stats: {
-               maxhp: 4
+               maxhp: 20
           }
      },
 
-     utility: { //randomly strike enemies with attack, has chance to keep going
-          alterations: [["evade", "wild_frenzy"]],
+     utility: { //give allies focus, empowered and surge
+          alterations: [["evade", "focusplus"]],
           stats: {
-               maxhp: 4
+               maxhp: 20
           }
      },
-     combatModifiers: ["entropy_eternal", "entropy_eyes", "entropy_clock", "entropy_heat"]
-}
-
-env.COMBAT_COMPONENTS.surging = {
-     name: "Surge",
-     slug: "surging",
-     description: "'a show of maddening speeds','frenzied by velzie's eye','pick up the pace','let us finish the play!'",
-     help: "'charge';'awaken';'overcharge'",
-
-     primary: {
-          alterations: [["primary", "tormenting_delight"]],
-          stats: {
-               maxhp: 2
-          }
-     },
-     secondary: {
-          alterations: [["secondary", "back_to_stage"]],
-          stats: {
-               maxhp: 2
-          }
-     },
-     utility: {
-          alterations: [["evade", "velnits_lament"]], //surging surge lmao. like yeah thats what it does - note::velnits lamet use to be called surging surge
-          stats: {
-               maxhp: 2
-          }
-     },
-     combatModifiers: []
+     combatModifiers: ["test_one", "test_two", "test_3"]
 }
 
 /*
-env.COMBAT_COMPONENTS.meat = {
-     name: "Meat",
-     slug: "meat",
-     description: "shhhh",
-     help: "not here yet",
+env.COMBAT_COMPONENTS.base = {
+     name: "Base",
+     slug: "base",
+     description: "use me as a base",
+     help: "use me as a base",
 
      primary: {
           alterations: [["primary"]],
@@ -368,26 +320,22 @@ env.COMBAT_COMPONENTS.meat = {
 + Yknow, you dont really need to look at these, they all do the same layout and are generally hard to break.
 + that being said, mayber you might need to see these for move names?
 */
-//ENTROPY
-/*
-[]^[]< my fucking god why did i not give them entropy_
-*/
-env.ACTOR_AUGMENTS.generic.third_law = {
-	slug: "third_law",
-	name: "3rd Law",
-	image: "/img/sprites/combat/augs/cripple.gif",
-	description: "'barrel into foes with great energy';'half beneficial effects for power'",
-	alterations: [["momentum", "player_law"]],
-	component: ["primary", "entropy"],
-	cost: 2
+env.ACTOR_AUGMENTS.generic.deathboost = {
+	slug: "deathboost",
+	name: "death beam boost",
+	image: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
+	description: "'you dont even need this tbh'",
+	alterations: [["death beam", "death beam boost"]],
+	component: ["primary", "test"],
+	cost: 1
 }
 
-env.ACTOR_AUGMENTS.generic.rig_field = {
-	slug: "rig_field",
-	name: "Rig Field",
-	image: "/img/sprites/combat/augs/barrier.gif",
-	description: "'rig the fight in your favour';'steal beneficial statuses from the foe'",
-	alterations: [["level_statuses", "player_rig"]],
+env.ACTOR_AUGMENTS.generic.healboost = {
+	slug: "healboots",
+	name: "boosted healing beam",
+	image: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
+	description: "'heal all allies even more!'",
+	alterations: [["healbeam", "player_rig"]], //LEFT OFF HERE LOOK HERE!!!!!!!
 	component: ["secondary", "entropy"],
 	cost: 2
 }
