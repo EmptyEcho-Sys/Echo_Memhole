@@ -283,7 +283,7 @@ env.COMBAT_COMPONENTS.test = {
                maxhp: 20
           }
      },
-     combatModifiers: ["test_one", "test_two", "test_3"]
+     combatModifiers: ["test_one", "test_two", "test_three"]
 }
 
 /*
@@ -331,82 +331,47 @@ env.ACTOR_AUGMENTS.generic.deathboost = {
 }
 
 env.ACTOR_AUGMENTS.generic.healboost = {
-	slug: "healboots",
+	slug: "healboost",
 	name: "boosted healing beam",
 	image: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
 	description: "'heal all allies even more!'",
-	alterations: [["healbeam", "player_rig"]], //LEFT OFF HERE LOOK HERE!!!!!!!
-	component: ["secondary", "entropy"],
-	cost: 2
+	alterations: [["healbeam", "healboost"]], //LEFT OFF HERE LOOK HERE!!!!!!! - okay past me
+	component: ["secondary", "test"],
+	cost: 1
 }
 
-env.ACTOR_AUGMENTS.generic.exp_overload = {
-     slug: "exp_overload",
-     name: "Exponential Overload",
-     image: "/img/sprites/combat/augs/cripple.gif",
-     description: "'focus movement into quick planned strikes';'improves striking'",
-     alterations: [["wild_frenzy", "player_overload"]],
-     component: ["utility", "entropy"],
+env.ACTOR_AUGMENTS.generic.focusboost = {
+     slug: "focusboost",
+     name: "Focus boost",
+     image: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
+     description: "'focus but even better!'",
+     alterations: [["focusplus", "focusboost"]],
+     component: ["utility", "test"],
      cost: 2
-}
-//SURGING
-env.ACTOR_AUGMENTS.showmanship = {
-	slug: "showmanship",
-	name: "SHOWMANSHIP",
-	description: "'SEE HOW THEY FALL!','THEY THOUGHT THEY WERE LAUGHING DOWN AT US','ONLY FOR US TO SWEEP THEIR KNEES!'",
-	alteration: [["tormenting_delight", "showmanship"]],
-	component: ["primary", "surging"],
-	cost: 2
-}
-
-env.ACTOR_AUGMENTS.method_acting = {
-	slug: "method_acting",
-	name: "Method Acting",
-	description: "'STARVED THIN AND CHITTIN SCATTERED';'YOU MUST CONTINUE!';'VELZIE DEMANDS! VELZIE COMMANDS!'",
-	alteration: [["back_to_stage", "method_acting"]],
-	component: ["secondary", "surging"],
-	cost: 2
-}
-
-env.ACTOR_AUGMENTS.sacrificial_act = {
-	slug: "sacrificial_act",
-	name: "Sacrifical Act",
-	description: "'LET THE SHOW GO FORTH! AGAIN!';'LET VELZIE VEIW OUR CRUDE IMMITATIONS';'FOR THAT WILL ONLY INSPIRE US MORE!'",
-	alteration: [["velnits_lament", "sacrificial_act"]],
-	component: ["evade", "surging"],
-	cost: 2
 }
 
 //COMBAT MODIFIERS
-env.MODIFIERS.entropy_eternal = {
-	name: "Eternal Decay",
-	getHelp: ()=> { return env.STATUS_EFFECTS.entropy_eternal.help },
+env.MODIFIERS.test_one = {
+	name: "nothing",
+	getHelp: ()=> { return env.STATUS_EFFECTS.test_one.help },
 	alterations: {
-		all: [ ["STATUS", "entropy_eternal"] ]
+		all: [ ["STATUS", "test_two"] ]
 	}
 }
 
-env.MODIFIERS.entropy_eyes = {
-	name: "Shattered Eyes",
-	getHelp: ()=> { return env.STATUS_EFFECTS.entropy_eyes.help },
+env.MODIFIERS.test_two = {
+	name: "nothing",
+	getHelp: ()=> { return env.STATUS_EFFECTS.test_two.help },
 	alterations: {
-		all: [ ["STATUS", "entropy_eyes"] ]
+		all: [ ["STATUS", "test_two"] ]
 	}
 }
 
-env.MODIFIERS.entropy_clock = {
-	name: "Broken Clock",
-	getHelp: ()=> {return env.STATUS_EFFECTS.entropy_clock.help},
+env.MODIFIERS.test_three = {
+	name: "nothing",
+	getHelp: ()=> {return env.STATUS_EFFECTS.test_three.help},
 	alterations: {
-		all: [["STATUS", "entropy_clock"]]
-	}
-}
-
-env.MODIFIERS.entropy_heat ={
-	name: "Heat Death",
-	getHelp: ()=> {return env.STATUS_EFFECTS.entropy_heat.help},
-	alterations: {
-		all: [["STATUS", "entropy_heat"]]
+		all: [["STATUS", "test_three"]]
 	}
 }
 
@@ -414,357 +379,90 @@ env.MODIFIERS.entropy_heat ={
 /*
 + Yeah these needed doccumenting
 */
-env.STATUS_EFFECTS.entropy_eternal = {//THIS WAS THE HARDEST
-	slug: "entropy_eternal",
-	name: "Eternal Decay",
+env.STATUS_EFFECTS.test_one = {
+	slug: "test_one",
+	name: "test1",
 	passive: "modifier",
 	beneficial: false,
-	icon: "/img/sprites/combat/passives/light_glee.gif",
-	impulse: {type: "common", component: "entropy"},
-	events: {
-        
-		onTurn: function() {
-               /*
-               Thank you adenator for making this code way before me!
-               However, i think im gonna take a stab at making it doccumented.
-               */
-			target = this.status.affecting
-			let statusPool = [] //List of valid status effects
-			for (let i in env.STATUS_EFFECTS) { //takes the entire list of status effects (including modded)
-				let statusData = env.STATUS_EFFECTS[i] //gives status to something comparable
-				let usable = true //assuming that we can use it
-				if(statusData.infinite) {usable = false} //in this case, moving infinite things could break something (glaring at windup)
-				if(statusData.passive) {usable = false} //in this case, we dont really wanna shuffle passives.
-				if(i.includes("global_")) {usable = false} //Globals are escalation and some fish modifiers.
-				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false} //AbsurdFrame specific statuses
-				if(i == "imperfect_reset") {usable = false} //Firmament looping status. you already know
-				if(i == "redirection") {usable = false} //honestly i dont know if im unable to move redirection around. it has an origin so just exclude it already
-				if(i == "entropy_eternal") {usable = false} //yeah so, Passive: true and Passive: "modifier" dont equal the exact same thing
-//                  console.log(i, usable)
-				if(usable) statusPool.push(i) //if that shit usable? add it to the list
-			}
-	        let validEffects = [] //list for who the modifier is affecting on the current turn
-	        target.statusEffects.forEach((status, i) => { //get their status list!
-//                  console.log(status)
-				if((!status.infinite || !status.passive) && (statusPool.includes(status.slug))) { //ignore passive, infinite, or anything not in the pool
-                	validEffects.push(status.slug) //if upper part goes "yeah", put it in the list
-                }
-            })
-//	          console.log(validEffects)
-            if(validEffects.length) validEffects.forEach((Replace) => { //if the list is not nothing, we run a little thing for each effect.
-                let selectedStatus = statusPool[Math.floor(Math.random()*statusPool.length)] //grab random status from the statusPool (we can set the max to be its length, and remove partial values)
-//              console.log(selectedStatus)
-                let chance = 0.2 //dont want it to be always
-//                  console.log(Replace)
-                if(Math.random() < chance) { //if the random hits that 20%?
-                	sendFloater({ //let them know whats going on!
-                        target: this.status.affecting,
-                        type: "arbitrary",
-                        arbitraryString: "DECAYED!",
-                        isGood: false
-                    })
-		            if (hasStatus(target, Replace)) { //if the status didnt die or if it doesnt get rolled twice (i dunno if thats possible)
-                    //slap it onto another person
-		    	    	addStatus({target: target, origin: false, status: selectedStatus, length: Math.floor(hasStatus(target, Replace)), noReact: true})
-                    //and then remove it from you!
-			            removeStatus(target, Replace)
-		            }     
-                }
-            })
-        }
-     },
-     help: `most status effects have a 20% chance to become any other effects`
+	icon: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
+	impulse: {type: "common", component: "test"},
+	events: 
+     help: `nothings`
 },
 
-env.STATUS_EFFECTS.entropy_eyes = {
-	slug: "entropy_eyes",
-	name: "Shattered Eyes",
+env.STATUS_EFFECTS.test_one = {
+	slug: "test_one",
+	name: "test1",
 	passive: "modifier",
 	beneficial: false,
-	icon: "/img/sprites/combat/passives/light_dark.gif",
-	events: {
-
-		onTurn: function(){
-			console.log("nothing here yet!")
-			target = this.status.affecting
-			let statusPool = []
-			for (let i in env.STATUS_EFFECTS) {
-				let statusData = env.STATUS_EFFECTS[i]
-				let usable = true
-				if(statusData.infinite) {usable = false}
-				if(statusData.passive) {usable = false}
-				if(i.includes("global_")) {usable = false}
-				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
-				if(i == "imperfect_reset") {usable = false}
-				if(i == "redirection") {usable = false}
-				if(i == "entropy_eternal") {usable = false}
-				//console.log(i, usable)
-				if(usable) statusPool.push(i)
-			}
-			let AllTargets = []
-			env.rpg.enemyTeam.members.forEach((target) => {
-				if (target => target.state != "dead" && target.state != "lastStand") {
-					AllTargets.push(target)
-				}
-			})
-			env.rpg.allyTeam.members.forEach((target)=> {
-				if (target => target.state != "dead" && target.state != "lastStand") {
-					AllTargets.push(target)
-				}
-			})
-			let TakableEffects = []
-			target.statusEffects.forEach((Deciding) => {
-				if((!Deciding.infinite || !Deciding.passive) && (statusPool.includes(Deciding.slug))) {
-					TakableEffects.push(Deciding.slug)
-				}
-			})
-			if(TakableEffects.length) for (let i = 0; i <= Math.floor(Math.random()*TakableEffects.length); i++) {
-				let Chance = 0.4
-				if (Math.random() < Chance) {
-					sendFloater({
-						target: this.status.affecting,
-						type: "arbitrary",
-						arbitraryString: "REFRACTED!",
-						isGood: false
-					})
-					let TakingStat = TakableEffects.sample()
-					let SendingTo = AllTargets.sample({noRepeat: true})
-					if (hasStatus(target, TakingStat)) {
-						addStatus({target: SendingTo, status: TakingStat, length: Math.floor(hasStatus(target, TakingStat))})
-						removeStatus(target, TakingStat)
-					}
-				}
-			}
-		}
-	},
-	help: `Effects have a 40% chance of being moved to another actor`
+	icon: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
+	impulse: {type: "common", component: "test"},
+	events: 
+     help: `nothings`
 },
 
-env.STATUS_EFFECTS.entropy_clock = {
-	slug: "entropy_clock",
-	name: "Broken Clock",
-	passive: true,
+env.STATUS_EFFECTS.test_two = {
+	slug: "test_two",
+	name: "test2",
+	passive: "modifier",
 	beneficial: false,
-	icon: "/img/sprites/combat/passives/claws_infection.gif",
-	events: {
-		onTurn: function() {
-			reactDialogue(this.status.affecting, 'rot');
-			combatHit(this.status.affecting, {amt: 2, autohit: true, redirectable: false, runEvents: false});
-			play('status', 0.75, 0.5);
-		},
-	},
-	help: "Each turn loose 2hp"
+	icon: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
+	impulse: {type: "common", component: "test"},
+	events: 
+     help: `nothings`
 },
-
-env.STATUS_EFFECTS.entropy_heat = {
-	slug: "entropy_heat",
-	name: "Heat Death",
-	passive: true,
-	beneficial: true,
-	icon: "/img/sprites/combat/augs/bazruka.gif",
-	events: {
-		onBeforeAction: function(context) {
-			if(!context.settings.action.type.includes("target")) return;
-			let Chance = 0.23
-			// alter action maybe
-			if(Math.random() < Chance) {
-				context.settings.action = env.ACTIONS["entropy_burnout"]
-				let subject = context.settings.user
-				sendFloater({
-					target: subject,
-					type: "arbitrary",
-					arbitraryString: "SPARKING",
-					isGood: false,
-					size: 2,
-				})
-			}
-		},
-	},
-	help: 'Attacks have a 23% chance to become Burnout'
-},
-
-env.STATUS_EFFECTS.entropy_reaction = {
-	slug: "entropy_reaction",
-	name: "ACTION:: REACT",
-	passive: true,
-	beneficial: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/eyew.gif",
-	impulse: {type: "action", component: "entropy"},
-	events: {
-		onCrit: function({subject, target}) {
-			let modifierPool = []
-			for (let i in env.STATUS_EFFECTS) {
-				let statusData = env.STATUS_EFFECTS[i]
-				let usable = false
-				if(statusData.passive) {usable = true}
-				if(statusData.infinite || (statusData.slug != "windup")) {usable = true}
-				if(i.includes("global_")||i.includes("malware_")||i.includes("fish_")) {usable = false}
-				if(i == "misalign_weaken" || i == "misalign_stun" || i == "realign" || i == "realign_stun") {usable = false}
-				if(i == "imperfect_reset") {usable = false}
-				if(i == "redirection" || i == "ethereal" || i == "immobile" || i == "conjoined" || i == "permanent_hp") {usable = false}
-				console.log(i, usable)
-				if(usable) modifierPool.push(i)
-			}
-			console.log(modifierPool)
-			let targetModifiers = []
-			for (let i in subject.statusEffects) {
-				let status = subject.statusEffects[i]
-				console.log(status)
-				if((status.infinite || status.passive || !i.includes("global_")) && (modifierPool.includes(status.slug))) {
-					targetModifiers.push(status.slug)
-				}
-			}
-			console.log(targetModifiers)
-			if (targetModifiers.length) for(let i = 0; i<1; i++) {
-				let Chance = 0.2
-				if (Math.random() < Chance) {
-					sendFloater({
-						target: subject,
-						type: "arbitrary",
-						arbitraryString: "DRAINED!",
-						isGood: false
-					})
-					let KillModif = targetModifiers.sample()
-					removeStatus(subject, KillModif, {forceRemoveStatus: true})
-				}
-			}
-		}
-	},
-	help: '20% chance to remove random status or impulse'
-}
-
-env.STATUS_EFFECTS.exp_over = { //This was what spurred this entire idea. The interaction between Bazruka and Wild Surge was interesting
-	slug: "exp_over",
-	name: "Exponential Overload",
-	beneficial: true,
-	infinite: true,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/Overclocked.png",
-	events: {
-		onTurn: function() { 
-			reactDialogue(this.status.affecting, 'surge') 
-			delete this.status.justGotSurge
-		},
-		onAction: function({user, action, target, beingUsedAsync}) {
-			if(this.status.justGotSurge || beingUsedAsync || ["incoherent_", "steer", "floor", "windup", "intrusive"].some(slugpart => action.slug.includes(slugpart)) ||
-				 !action.type.includes("target") ||(!action.beneficial && target.team.name == "ally") ||(action.beneficial && target.team.name == "enemy")) return;
-			setTimeout(()=>{
-				sendFloater({
-					target: user,
-					type: "arbitrary",
-					arbitraryString: "EXPONENTIAL SURGE!",
-					size: 1.5,
-				})
-				readoutAdd({
-					message: `${user.name} enters a deeply focused flurry! (<span definition="${processHelp(this.status, {caps: true})}">${this.status.name}</span>)`, 
-					name: "sourceless", 
-					type: "sourceless combat minordetail", 
-					show: false,
-					sfx: false
-				})
-				env.GENERIC_ACTIONS.teamWave({
-					team: target.team,
-					exec: (actor, i) => {
-						if(actor == target) return; // we skip the original target
-						env.GENERIC_ACTIONS.teamWave({
-							team: target.team,
-							exec: (actor, i) => {
-								if(actor == target) return; // we skip the original target
-								useAction(user, action, actor, {triggerActionUseEvent: false, beingUsedAsync: true, reason: "exponential overload"})
-							}
-						})
-					}
-				})
-			}, 500)
-			removeStatus(this.status.affecting, "exp_over")
-			addStatus({target:user, status: 'stun', length: 2, noReact: true})
-			addStatus({target:user, status: 'vulnerable', length: 3, noReact: true})
-		},
-		onCreated: function({statusObj}) {
-			if(statusObj.slug == this.status.slug) this.status.justGotSurge = true
-		},
-	},
-	help: "on next active targeted action, gain 1T:STUN, and use across the entire target team\nif beneficial, action used on all allies\nif offensive, action used on all foes"
-},
-
-env.STATUS_EFFECTS.burnout = {
-	slug: "burnout",
-	name: "Burnout",
+env.STATUS_EFFECTS.test_three = {
+	slug: "test_three",
+	name: "test3",
+	passive: "modifier",
 	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/Hhhot p oc k e t.gif",
-	events:{
-		onCrit: function({subject, attack, originalEventTarget}) {
-			removeStatus(this.status.affecting, 'burnout',{runEvents: false})
-			sendFloater({
-				target: this.status.affecting,
-				type: "arbitrary",
-				arbitraryString: "DOUSED!",
-				size: 1,
-			})
-			readoutAdd({
-				message: `${this.status.affecting.name} puts out the flame on their enegrgy`, 
-				name: "sourceless", 
-				type: "sourceless combat minordetail",
-				show: false,
-				sfx: false
-			})
-		},
-		onTurn: function({target}) {
-			if (Math.floor(hasStatus(this.status.affecting, "burnout")) <= 2){
-				addStatus({target: this.status.affecting, status: "hotpocket", length: 2})
-			}
-		},
-	},
-	help: 'Once status runs out, Explode.'
-},
-
-env.STATUS_EFFECTS.hotpocket = {
-	slug: "hotpocket",
-	name: "Immanent Death",
-	beneficial: false,
-	icon: "https://glass-memoirs.github.io/Glass-Memoirs/BSTRDIZEDHOTPOCKET.gif",
-	events: {
-		onTurn: function() {
-			combatHit(this.status.affecting, {amt: 1000, autohit: true, redirectable: false})
-		}
-	},
-	help: "Explode! :}"
+	icon: "https://github.com/EmptyEcho-Sys/Echo_Memhole/blob/main/testinghumor.gif",
+	impulse: {type: "common", component: "test"},
+	events: 
+     help: `nothings`
 }
 
 //COMBAT ACTIONS
-//ENTROPY
-env.ACTIONS.momentum = { //couldnt figure out how to make this thing actually multiply damage by the amount of stat effects so i made it loop
-	slug: "momentum",
-	name: "Momentum",
+//test
+env.ACTIONS.deathbeam = { //HERREEEEE LOOK HEREE!!!!!! HERE FOR MORE WORKKK!!!!
+	slug: "deathbeam",
+	name: "death beam",
 	type: 'target',
-	desc: "'redirect beneficial effects into power';'removes them once the hit connects'",
+	desc: "'death beam'",
 	anim: "basic-attack",
-	help: "'100% -2HP + (XT:REGEN/FOCUS)\nSELF::-REGEN/FOCUS'",
+	help: "'100% -1000000000HP'",
 	usage: {
-		act: "%USER CHANNELS ENERGY INTO A SPRINT",
-		crit: "%TARGET GETS KNOCKED OVER",
-		hit: "%TARGET GETS SLAMMED INTO",
-		miss: "%TARGET SIDESTEPS"
+		act: "%USER FOCUSES THEIR AURA",
+		crit: "%USER FUCKS SHIT UP BAD",
+		hit: "%USER SHOULDNT BE SEEING THIS",
+		miss: "%TARGET HAS W RIZZ????"
+		        },
+        
+        details: {
+            flavor: `'utilize rapid-formed micro-explosive';'chance for greater shrapnel explosion'`,
+            onHit: `'death'`,
+            onCrit: () => `'kill em all'` : ``}`,
 	},
 	accuracy: 1,
-	crit: 0.1,
-	amt: 2,
+	crit: 1,
+	amt: 500000000,
 	exec: function(user, target) {
-		let action = this
-		//console.log(hasStatus(user, 'focused'))
-		//The looping part
-		for (let i = 1; i <= (Math.floor(hasStatus(user, 'focused')) + Math.floor(hasStatus(user, 'regen'))); i++) {
-			env.GENERIC_ACTIONS.singleTarget({
-				action,
-				user,
-				target: target,
-				critExec: ({target}) => {
-					addStatus({target: target, status: 'stun', length: 1})
-				}
-			})
-		}
-		if(hasStatus(user, 'focused')) removeStatus(user, "focused")
-		if(hasStatus(user, 'focused')) removeStatus(user, "regen")
-	}
+            let action = this;
+            return env.GENERIC_ACTIONS.singleTarget({
+                action, 
+                user, 
+                target,
+
+                critExec: ()=> env.GENERIC_ACTIONS.teamWave({
+                    team: user.enemyTeam,
+                    exec: (actor, i) => {
+                        env.GENERIC_ACTIONS.singleTarget({
+                            action, 
+                            user, 
+                            target: actor,
+                            hitSfx: { name: 'shot4' },
+                            hitStatus: this.stats.status.puncture,
+                            canCrit: false
 },
 
 env.ACTIONS.player_law = { //Funky little move, had to change it up just like momentum.
