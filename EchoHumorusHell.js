@@ -424,7 +424,7 @@ env.STATUS_EFFECTS.test_three = {
 
 //COMBAT ACTIONS
 //test
-env.ACTIONS.deathbeam = { //HERREEEEE LOOK HEREE!!!!!! HERE FOR MORE WORKKK!!!!
+env.ACTIONS.deathbeam = { //HERREEEEE LOOK HEREE!!!!!! HERE FOR MORE WORKKK!!!! - o7 7 hour ago me
 	slug: "deathbeam",
 	name: "death beam",
 	type: 'target',
@@ -445,7 +445,7 @@ env.ACTIONS.deathbeam = { //HERREEEEE LOOK HEREE!!!!!! HERE FOR MORE WORKKK!!!!
 	},
 	accuracy: 1,
 	crit: 1,
-	amt: 500000000,
+	amt: 1000000000,
 	exec: function(user, target) {
             let action = this;
             return env.GENERIC_ACTIONS.singleTarget({
