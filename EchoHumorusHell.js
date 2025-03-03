@@ -256,14 +256,14 @@ env.COMBAT_COMPONENTS.test = {
      },
 
      secondary: { //full heal allies
-          alterations: [["secondary", "healbeam"]],
+          alterations: [["secondary", "secondary"]],
           stats: {
                maxhp: 20
           }
      },
 
      utility: { //give allies focus, empowered and surge
-          alterations: [["evade", "focusplus"]],
+          alterations: [["evade", "evade"]],
           stats: {
                maxhp: 20
           }
