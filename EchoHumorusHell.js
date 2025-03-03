@@ -1,17 +1,4 @@
 /*
- OK REDOING THIS COMMENTING BECAUSE I LOST IT AGAIN
- Credits:
- -
- SECTIONS:
- 1. Dialogue changing
- 2. CSS
- 3. Humors
- 4. Augments
- 5. Combat Modifiers
- 6. Status Effects
- 7. Combat Actions
- 8. Merchant Code
-
  TO DO:
 -make testing humor
   -action, fated, actions
