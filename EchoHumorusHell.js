@@ -315,7 +315,7 @@ env.ACTOR_AUGMENTS.generic.deathboost = {
 	cost: 1
 }
 
-env.ACTOR_AUGMENTS.generic.healboost = {
+/*env.ACTOR_AUGMENTS.generic.healboost = {
 	slug: "healboost",
 	name: "boosted healing beam",
 	image: "https://github.com/EmptyEcho-Sys/Echo_Memhole/testinghumor.gif",
@@ -333,7 +333,7 @@ env.ACTOR_AUGMENTS.generic.focusboost = {
      alterations: [["focusplus", "focusboost"]],
      component: ["utility", "test"],
      cost: 2
-}
+}*/
 
 //COMBAT ACTIONS
 //test
