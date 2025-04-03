@@ -319,7 +319,7 @@ env.COMBAT_COMPONENTS.base = {
 + Yknow, you dont really need to look at these, they all do the same layout and are generally hard to break.
 + that being said, mayber you might need to see these for move names?
 */
-env.ACTOR_AUGMENTS.generic.deathboost = {
+/*env.ACTOR_AUGMENTS.generic.deathboost = {
 	slug: "deathboost",
 	name: "death beam boost",
 	image: "https://github.com/EmptyEcho-Sys/Echo_Memhole/testinghumor.gif",
@@ -329,7 +329,7 @@ env.ACTOR_AUGMENTS.generic.deathboost = {
 	cost: 1
 }
 
-/*env.ACTOR_AUGMENTS.generic.healboost = {
+env.ACTOR_AUGMENTS.generic.healboost = {
 	slug: "healboost",
 	name: "boosted healing beam",
 	image: "https://github.com/EmptyEcho-Sys/Echo_Memhole/testinghumor.gif",
