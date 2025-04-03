@@ -217,6 +217,7 @@ if (page.party) {
 				member.components["secondary"] = "test"
 				member.components["utility"] = "test"
 			})
+            break
 		}
 	}
 //});
