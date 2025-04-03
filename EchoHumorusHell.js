@@ -200,8 +200,8 @@ document.addEventListener("readystatechange", (event) => {
 
 			page.party.forEach(member=>{
 				member.components["primary"] = "test"
-				member.components["secondary"] = 
-				member.components["utility"] = 
+				member.components["secondary"] = "test"
+				member.components["utility"] = "test"
 			})
 		}
 	}
@@ -354,7 +354,7 @@ env.ACTIONS.deathbeam = { //HERREEEEE LOOK HEREE!!!!!! HERE FOR MORE WORKKK!!!! 
         details: {
             flavor: `'utilize rapid-formed micro-explosive';'chance for greater shrapnel explosion'`,
             onHit: `'death'`,
-            onCrit: () => `'kill em all'` : ``}`,
+            onCrit: `'kill em all'`,
 	},
 	accuracy: 1,
 	crit: 1,
@@ -373,10 +373,14 @@ env.ACTIONS.deathbeam = { //HERREEEEE LOOK HEREE!!!!!! HERE FOR MORE WORKKK!!!! 
                             action, 
                             user, 
                             target: actor,
-                            hitSfx: { name: 'shot4' },
-                            hitStatus: 
+                            hitSfx: { name: 'shot4' }, 
                             canCrit: true
-},
+                        })
+                    }
+                })
+            })
+    }
+}
 
 //Merchant code
 for (const componentName of ["test"]) { // this probably isn't a function but i don't know where else to put it
