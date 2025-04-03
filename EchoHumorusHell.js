@@ -6,7 +6,8 @@
 */
 
 //Dialogue changing
-document.addEventListener("readystatechange", (event) => {
+if( page.path == '/local/ozo/' || page.path == '/local/beneath/embassy') {
+/*document.addEventListener("readystatechange", (event) => {
 	if(document.readyState == 'complete') {
 		env.dialogues["dreammod"] = generateDialogueObject(`
 loop
@@ -144,20 +145,31 @@ sfer
             HIDEREAD::
 `)
 	}
-} ) ;
-
-document.addEventListener("readystatechange", (event) => {
-	if(document.readyState == 'complete'){
+} ) ;*/
+if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("test")) {
+	env.dialogues["dreammod"].humors.responses[0].replies.push({
+		"name":"entropy",
+		"destination":"loop",
+		"exec": Function('change("e3a2_newcomp","test")'),
+		"hideRead":true
+	})
+	}
+}
+if (page.party) {
+/*document.addEventListener("readystatechange", (event) => {
+	if(document.readyState == 'complete'){*/
 		switch(check("e3a2_newcomp")) {
 		case "too many":
+            if (typeof page.flag.components == undefined) {
 			page.flags.components = {
-				ichor: 30,
-				claws: 30,
-				light: 30,
-				bone: 30,
-				eyes: 30,
-				test: 30,
-			}
+				    ichor: 30,
+				    claws: 30,
+				    light: 30,
+				    bone: 30,
+				    eyes: 30
+			    }
+            }
+            page.flags.components.test = 30
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -173,14 +185,16 @@ document.addEventListener("readystatechange", (event) => {
 				break
 
 		case "abundant":
-			page.flags.components = {
-				ichor: 3,
-				claws: 3,
-				light: 3,
-				bone: 3,
-				eyes: 3,
-				test: 3,
-			}
+            if (typeof page.flag.components == undefined) {
+			    page.flags.components = {
+				    ichor: 3,
+				    claws: 3,
+				    light: 3,
+				    bone: 3,
+				    eyes: 3,
+			    }
+            }
+            page.flags.components.test = 3
 			
 			page.party[0].components["primary"] = "claws"
 			page.party[0].components["secondary"] = "claws"
@@ -205,8 +219,8 @@ document.addEventListener("readystatechange", (event) => {
 			})
 		}
 	}
-});
-
+//});
+if (page.path == '/local/beneath/embassy/') {
 //CSS
 content.insertAdjacentHTML('beforeend', `<style>
 /* for making player cards not overflow offscreen */
@@ -409,4 +423,5 @@ for (const componentName of ["test"]) { // this probably isn't a function but i 
           exec: ()=> {commerceObject.sellExec(); env.e3a2.mTotals = CrittaMenu.getTotals(); env.e3a2.updateExchangeScreen()}
      })
      env.e3a2.merchant.commerce.push(commerceObject)
+}
 }
