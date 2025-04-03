@@ -1,8 +1,9 @@
+
 /*
  TO DO:
--make testing humor
-  -action, fated, actions
-  -https://github.com/EmptyEcho-Sys/Echo_Memhole/testinghumor.gif
+-make testing humor - DONE
+  -action, fated, actions - UNNEEDED
+  -https://github.com/EmptyEcho-Sys/Echo_Memhole/testinghumor.gif - DONE
 */
 
 //Dialogue changing
@@ -260,27 +261,27 @@ env.COMBAT_COMPONENTS.test = {
      name: "Testing",
      slug: "test",
      description: "'Testing and debugging'",
-     help: "'instakill,'full heal','powering'",
+     help: "'instakill,'nothing','nothing'",
 
      primary: { //kill all foes
           alterations: [["primary", "deathbeam"]],     
 
           stats: {
-               maxhp: 20
+               maxhp: 50
           },
      },
 
      secondary: { //full heal allies
           alterations: [["secondary", "secondary"]],
           stats: {
-               maxhp: 20
+               maxhp: 50
           }
      },
 
      utility: { //give allies focus, empowered and surge
           alterations: [["evade", "evade"]],
           stats: {
-               maxhp: 20
+               maxhp: 50
           }
      },
      combatModifiers: []
@@ -367,9 +368,9 @@ env.ACTIONS.deathbeam = { //HERREEEEE LOOK HEREE!!!!!! HERE FOR MORE WORKKK!!!! 
 		        },
         
         details: {
-            flavor: `'utilize rapid-formed micro-explosive';'chance for greater shrapnel explosion'`,
-            onHit: `'death'`,
-            onCrit: `'kill em all'`,
+            flavor: `'call velzie up for a favor'`,
+            onHit: `'Velzie picks up the phone'`,
+            onCrit: `'Velzie is ammused by their pain'`,
 	},
 	accuracy: 1,
 	crit: 1,
