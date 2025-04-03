@@ -148,7 +148,7 @@ sfer
 } ) ;*/
 if(!env.dialogues["dreammod"].humors.responses[0].replies.includes("test")) {
 	env.dialogues["dreammod"].humors.responses[0].replies.push({
-		"name":"entropy",
+		"name":"test",
 		"destination":"loop",
 		"exec": Function('change("e3a2_newcomp","test")'),
 		"hideRead":true
