@@ -4,6 +4,7 @@
 -make testing humor - DONE
   -action, fated, actions - UNNEEDED
   -https://github.com/EmptyEcho-Sys/Echo_Memhole/testinghumor.gif - DONE
+-make ultreakilling humor
 */
 
 //Dialogue changing
