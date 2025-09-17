@@ -1,7 +1,7 @@
 {
-    "craftxbox":{
-        "name":"craftxbox",
-        "image":"https://crxb.cc/snep.png",
-        "type":"external moth"
+    "klezt":{
+        "name":"klezt",
+        "image":"https://github.com/EmptyEchoSys/Echo_Memhole/icons/klezt.gif",
+        "type":".truecreature .akizet"
     }
 }
